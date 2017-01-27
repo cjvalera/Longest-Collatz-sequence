@@ -5,13 +5,16 @@ public class LongestCollatzSeq {
     private static final int size = 1000000;
 
     public static void main(String[] args){
-
         LongestCollatzSeq lcs = new LongestCollatzSeq();
-        lcs.firstSolution(size);
+
+        //Uncomment to enable Brute-Force approach
+        //lcs.firstSolution(size);
+
+        //Array Memoization approach
         lcs.secondSolution(size);
-        lcs.thirdSolution(size);
 
-
+        //Uncomment to enable HashMap memoization approach
+        //lcs.thirdSolution(size);
     }
 
     /**
@@ -47,6 +50,7 @@ public class LongestCollatzSeq {
     }
 
     /**
+     * This method is used by the brute-force approach.
      * This method will return the number of sequence given a starting number.
      *  n → n/2 (n is even)
      *  n → 3n + 1 (n is odd)
