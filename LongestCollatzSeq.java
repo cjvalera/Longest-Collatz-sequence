@@ -21,11 +21,11 @@ public class LongestCollatzSeq {
      * After reading the problem, this is the solution that immediately came into my mind.
      * First, I need to loop through from 2 to 1000000 and use {@link #calculateSeq(long)} method
      * to find their number of terms/length. Second is to compare the returned value to maxTerms, if
-     * the return value is larger, then replace the maxTerm and also save the current i to starting number.
+     * the return value is larger, then replace the maxTerm and also save the current number to starting number.
      *
      * This solution is straight forward as it is a brute force approach of finding the longest Collatz sequence
-     * from 1 to 1 million. This solution can be time costly, if we look for the longest sequence for numbers
-     * larger than 1 million, this solution has O(n^2) time complexity because we are looping from 2 to n and
+     * from 2 to 1 million. This solution can be time costly if we look for the longest sequence for numbers
+     * larger than 1 million. This solution has O(n^2) time complexity because we are looping from 2 to n and
      * for every 'n' starting number we have to loop through (using the rules) until we find 1. (Assuming Collatz is
      * correct, otherwise were stuck in infinite loop).
      */
@@ -75,11 +75,17 @@ public class LongestCollatzSeq {
      * by realizing that as I loop through the 2 to 1 million, I am encountering a starting number where i recently
      * calculate its sequence terms and count.
      * Given the rules and the assumption that it will always finish at one (thus eventually decrease). Also since
-     * I am looping from a smallest number, as I calculate larger number, when a the number becomes smaller than
+     * I am looping from a smallest number, as I calculate larger numbers, when a the number becomes smaller than
      * the starting number, I can just look up that number to get its number of terms and add it to current number
-     * of terms I previously calculated.
+     * of terms I previously calculated.Because of this I don't need to calculate the the starting number's terms
+     * again until I reach 1.
      *
-     * Because of this I don't need to calculate the the starting number's terms again until I reach 1.
+     * For example, with 5 as starting number:
+     * It will have 5 - > 16 -> 8 -> 4 -> 2 -> 1
+     * When I get to number '4', I already calculated the number of terms of this number(which is 3), thus
+     * I just need to add this count to the number of counts of term i calculated(which is 3). Therefore, 5
+     * as a starting number has 6 terms.
+     *
      * This solution is much faster that the previous solution but it comes with a cost of using space since in this
      * solution I used an array data structure with size of 1 million.
      *
@@ -140,7 +146,7 @@ public class LongestCollatzSeq {
 
     /**
      * After the second solution, I realized that I can also use HashMap to implement the memoization
-     * solution of the problem. My goal here is to see if using a HashMap is faster that using an array,
+     * solution of the problem. My goal here is to see if using a HashMap is faster than using an array,
      * since HashMap offer O(1) for insertion and retrieval of elements (though arrays also offer O(1) access,
      * given that you know the index).
      *
